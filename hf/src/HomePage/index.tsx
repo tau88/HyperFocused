@@ -36,7 +36,7 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
   const pomoIcon = () => (
     <AlarmOnTwoToneIcon
       onClick={handleNav_Pomo}
-      sx={{ fontSize: "7vw", color: red[400], cursor: "pointer" }}
+      sx={{ fontSize: "7vw", color: blue[400], cursor: "pointer" }}
     />
   );
 
@@ -57,7 +57,7 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
   const examIcon = () => (
     <CheckBoxOutlineBlankTwoToneIcon
       onClick={handleNav_Dead}
-      sx={{ fontSize: "7vw", color: blue[800], cursor: "pointer" }}
+      sx={{ fontSize: "7vw", color: red[800], cursor: "pointer" }}
     />
   );
 

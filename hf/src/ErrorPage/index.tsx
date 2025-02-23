@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import red from "@mui/material/colors/red";
 
 import { ErrorPageProps } from "./types";
 
@@ -11,16 +11,20 @@ const Error_Page: React.FC<ErrorPageProps> = ({ code, codeDesc, ...props }) => {
   const navigate = useNavigate();
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      height="100vh"
-      textAlign="center"
-      bgcolor="#f8d7da"
-      color="#721c24"
-      p={4}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        textAlign: "center",
+        backgroundColor: red[100],
+        color: red[900],
+        padding: "20px",
+        boxSizing: "border-box",
+        overflow: "hidden",
+      }}
     >
       <Typography variant="h2" fontWeight="bold">
         {code}
@@ -36,7 +40,7 @@ const Error_Page: React.FC<ErrorPageProps> = ({ code, codeDesc, ...props }) => {
       >
         Go Home
       </Button>
-    </Box>
+    </div>
   );
 };
 
