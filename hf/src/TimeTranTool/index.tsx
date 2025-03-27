@@ -122,7 +122,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
           height: "100vh",
           width: "100vw",
           textAlign: "center",
-          backgroundColor: green[50],
+          backgroundColor: theme.palette.background.default,
           boxSizing: "border-box",
           overflow: "hidden",
         }}

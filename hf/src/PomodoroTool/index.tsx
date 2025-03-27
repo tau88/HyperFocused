@@ -92,7 +92,7 @@ const PomodoroTool: React.FC<PomodoroToolProps> = ({ ...props }) => {
           height: "100vh",
           width: "100vw",
           textAlign: "center",
-          backgroundColor: blue[50],
+          backgroundColor: theme.palette.background.default,
           boxSizing: "border-box",
           overflow: "hidden",
         }}

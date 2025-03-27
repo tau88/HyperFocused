@@ -1,16 +1,16 @@
 import { createTheme } from "@mui/material/styles";
-import blue from "@mui/material/colors/blue";
+import purple from "@mui/material/colors/purple";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: blue[200], // Custom primary color
+      main: purple[200], // Custom primary color
     },
     secondary: {
-      main: blue[900], // Custom secondary color
+      main: purple[900], // Custom secondary color
     },
     background: {
-      default: blue[50], // Light gray background
+      default: purple[50], // Light gray background
     },
     text: {
       primary: "#000", // Darker text for contrast

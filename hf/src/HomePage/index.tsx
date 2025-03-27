@@ -6,10 +6,9 @@ import Grid from "@mui/material/Grid2";
 import AlarmOnTwoToneIcon from "@mui/icons-material/AlarmOnTwoTone";
 import BrowseGalleryTwoToneIcon from "@mui/icons-material/BrowseGalleryTwoTone";
 import SportsScoreTwoToneIcon from "@mui/icons-material/SportsScoreTwoTone";
+import ConstructionTwoToneIcon from "@mui/icons-material/ConstructionTwoTone";
 import CheckBoxOutlineBlankTwoToneIcon from "@mui/icons-material/CheckBoxOutlineBlankTwoTone";
-import red from "@mui/material/colors/red";
-import green from "@mui/material/colors/green";
-import blue from "@mui/material/colors/blue";
+import { red, green, blue, yellow } from "@mui/material/colors";
 
 import ToolIconTemplate from "./ToolIconTemplate";
 import { HomePageProps } from "./types";
@@ -27,6 +26,10 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
 
   const handleNav_Race = () => {
     navigate("/chore_race_tool");
+  };
+
+  const handleNav_New_Tool = () => {
+    navigate("/future_tool");
   };
 
   const handleNav_Dead = () => {
@@ -51,6 +54,13 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
     <SportsScoreTwoToneIcon
       onClick={handleNav_Race}
       sx={{ fontSize: "7vw", cursor: "pointer" }}
+    />
+  );
+
+  const construction_Icon = () => (
+    <ConstructionTwoToneIcon
+      onClick={handleNav_New_Tool}
+      sx={{ fontSize: "7vw", color: yellow[800], cursor: "pointer" }}
     />
   );
 
@@ -110,8 +120,15 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
         >
           <Grid sx={{ width: 1 / 4 }}>
             <ToolIconTemplate
+              title="Future Tool"
+              desc="Placeholder to see how a unfinished tool works and how the second row looks."
+              Icon={construction_Icon}
+            />
+          </Grid>
+          <Grid sx={{ width: 1 / 4 }}>
+            <ToolIconTemplate
               title="Example Tool"
-              desc="Placeholder to see how the second row looks."
+              desc="Placeholder to see how the home page handles errors and how the second row looks."
               Icon={examIcon}
             />
           </Grid>

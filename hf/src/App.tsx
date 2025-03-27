@@ -2,9 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import HomePage from "./HomePage";
-import PomodoroTool from "./PomodoroTool";
 import ErrorPage from "./ErrorPage";
+import PomodoroTool from "./PomodoroTool";
 import TimeTranTool from "./TimeTranTool";
+import ChoreRaceTool from "./ChoreRaceTool";
 
 const App: React.FC = () => {
   return (
@@ -13,8 +14,9 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/pomodoro_tool" element={<PomodoroTool />} />
         <Route path="/time_translator_tool" element={<TimeTranTool />} />
+        <Route path="/chore_race_tool" element={<ChoreRaceTool />} />
         <Route
-          path="/chore_race_tool"
+          path="/future_tool"
           element={
             <ErrorPage
               code={204}
