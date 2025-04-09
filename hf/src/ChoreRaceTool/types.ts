@@ -4,35 +4,15 @@ export type choreRacerType = {
   choreName: string;
   unitOfMeasurement: string;
   unitsPerSecond: string;
+  best: {
+    units: number;
+    time: number;
+  };
+  previous: {
+    units: number;
+    time: number;
+  };
 };
-
-export const initialChoreList: choreRacerType[] = [
-  {
-    choreName: "Folding Laundry",
-    unitOfMeasurement: "Clothes Folded",
-    unitsPerSecond: "Seconds / Fold",
-  },
-  {
-    choreName: "Washing Dishes",
-    unitOfMeasurement: "Dishes Washed",
-    unitsPerSecond: "Seconds / Dish",
-  },
-  {
-    choreName: "Making the Bed",
-    unitOfMeasurement: "None",
-    unitsPerSecond: "None",
-  },
-  {
-    choreName: "CUSTOM: Sweeping and Mopping the Kitchen",
-    unitOfMeasurement: "",
-    unitsPerSecond: "",
-  },
-  {
-    choreName: "CUSTOM: Water the Plants",
-    unitOfMeasurement: "",
-    unitsPerSecond: "",
-  },
-];
 
 export type SettingsMenuProps = {
   /** Is settings menu open */

@@ -14,9 +14,10 @@ import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 // import SyncAltTwoToneIcon from "@mui/icons-material/SyncAltTwoTone";
 // import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
+import { loadTrialData } from "./ChoreRacerJSONManager";
 import RacerDisplay from "./RacerDisplay";
 import SettingsMenu from "./SettingsMenu";
-import { ChoreRaceToolProps, choreRacerType, initialChoreList } from "./types";
+import { ChoreRaceToolProps, choreRacerType } from "./types";
 import theme from "./theme";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
@@ -35,9 +36,25 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
     choreName: "None",
     unitOfMeasurement: "None",
     unitsPerSecond: "None",
+    previous: {
+      units: 1,
+      time: 99999,
+    },
+    best: {
+      units: 1,
+      time: 99999,
+    },
   });
+
+  const initialChoreList = loadTrialData();
+
   const [savedChoreList, setSavedChoreList] =
     React.useState<choreRacerType[]>(initialChoreList);
+
+  // React.useEffect(() => {
+  //   if (currentChore.choreName !== "None")
+  //     setCurrentChore(loadTrialData(currentChore.choreName));
+  // }, [currentChore]);
 
   const handleSettingsMenu = (event: React.MouseEvent<HTMLElement>) => {
     setSettingsMenu(event.currentTarget);
@@ -123,7 +140,8 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
             return <MenuItem value={item.choreName}>{item.choreName}</MenuItem>;
           })}
         </Select>
-        {currentChore.choreName === "None" ? (
+        {currentChore.choreName === "None" &&
+        currentChore.unitsPerSecond === "None" ? (
           ""
         ) : (
           <RacerDisplay currentChore={currentChore} />

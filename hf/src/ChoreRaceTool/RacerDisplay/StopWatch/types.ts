@@ -1,10 +1,10 @@
-export type StopWatchProps = {};
+export type StopWatchProps = { choreName: string };
 
 export type ControlButtonsProps = {
   handleStart: () => void;
   handleReset: () => void;
   handlePauseResume: () => void;
-  handleFinish: () => void;
+  handleFinish: (event: React.MouseEvent<HTMLElement>) => void;
   isPaused: boolean;
   active: boolean;
 };

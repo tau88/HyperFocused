@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import RefreshTwoToneIcon from "@mui/icons-material/RefreshTwoTone";
 
+import { createNewChore } from "./ChoreRacerJSONManager";
 import { NewChoreMenuProps, choreRacerType } from "./types";
 
 const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
@@ -26,9 +27,22 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
     choreName: "",
     unitOfMeasurement: "",
     unitsPerSecond: "",
+    previous: {
+      units: 1,
+      time: 99999,
+    },
+    best: {
+      units: 1,
+      time: 99999,
+    },
   };
 
   const [value, setValue] = React.useState<choreRacerType>(emptyNewChore);
+  const [errors, setErrors] = React.useState<{ [key: string]: string }>({
+    choreName: "",
+    unitOfMeasurement: "",
+    unitsPerSecond: "",
+  });
 
   const handleCloseNoSave = () => {
     setValue(emptyNewChore);
@@ -36,7 +50,17 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
   };
 
   const handleCloseSave = () => {
+    if (value.unitOfMeasurement === "None")
+      setValue((prev) => ({
+        ...prev,
+        units: 0,
+      }));
     setSavedChoreList([...savedChoreList, value]);
+    createNewChore(
+      value.choreName,
+      value.unitOfMeasurement,
+      value.unitsPerSecond
+    );
     handleClose();
   };
 
@@ -46,11 +70,36 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    console.log(name + " " + value);
 
     setValue((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    if (value.length === 0)
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "Field cannot be empty",
+      }));
+    else
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+
+    // setErrors()
+
+    // if (name !== "longRestCount")
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     [name]: validateField(1, 120, value),
+    //   }));
+    // else
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     [name]: validateField(0, 999, value),
+    //   }));
   };
 
   return (
@@ -62,7 +111,7 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
       maxWidth={"sm"}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Add a New Chore
+        Add a New Chore: Enter None if chore doesn't have units
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -88,8 +137,8 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
               value={value.choreName}
               onChange={handleChange}
               //   onBlur={handleBlur}
-              //   error={errors.pomoLength}
-              //   helperText={errors.pomoLength ? errors.pomoLength : " "}
+              error={!!errors.choreName}
+              helperText={errors.choreName ? errors.choreName : " "}
             />
           </Grid>
           <Grid size={5}></Grid>
@@ -128,8 +177,10 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
               value={value.unitOfMeasurement}
               onChange={handleChange}
               //   onBlur={handleBlur}
-              //   error={!!errors.smolRestLength}
-              //   helperText={errors.smolRestLength}
+              error={!!errors.unitOfMeasurement}
+              helperText={
+                errors.unitOfMeasurement ? errors.unitOfMeasurement : " "
+              }
             />
           </Grid>
           <Grid size={6}>
@@ -142,8 +193,8 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
               value={value.unitsPerSecond}
               onChange={handleChange}
               //   onBlur={handleBlur}
-              //   error={!!errors.smolRestLength}
-              //   helperText={errors.smolRestLength}
+              error={!!errors.unitsPerSecond}
+              helperText={errors.unitsPerSecond ? errors.unitsPerSecond : " "}
             />
           </Grid>
         </Grid>

@@ -50,6 +50,14 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
     }
   };
 
+  const displayTime = (seconds: number) => {
+    const timeMinute = Math.floor(seconds / 60);
+    const timeSeconds = seconds % 60;
+
+    if (timeSeconds < 10) return timeMinute + ":0" + timeSeconds;
+    else return timeMinute + ":" + timeSeconds;
+  };
+
   const displayStats = () => {
     return (
       <Grid
@@ -65,11 +73,13 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
             width: videoWidth,
           }}
         >
-          <h4>5:03</h4>
+          <h4>{displayTime(currentChore.best.time)}</h4>
           {currentChore.unitOfMeasurement !== "None" ? (
             <>
-              <h4>32</h4>
-              <h4>9.46875</h4>
+              <h4>{currentChore.best.units}</h4>
+              <h4>
+                {(currentChore.best.time / currentChore.best.units).toFixed(2)}
+              </h4>
             </>
           ) : (
             <></>
@@ -95,11 +105,15 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
             width: videoWidth,
           }}
         >
-          <h4>8:24</h4>
+          <h4>{displayTime(currentChore.previous.time)}</h4>
           {currentChore.unitOfMeasurement !== "None" ? (
             <>
-              <h4>45</h4>
-              <h4>11.2</h4>
+              <h4>{currentChore.previous.units}</h4>
+              <h4>
+                {(
+                  currentChore.previous.time / currentChore.previous.units
+                ).toFixed(2)}
+              </h4>
             </>
           ) : (
             <></>
@@ -167,7 +181,7 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
           </Grid>
         </Grid>
         {displayStats()}
-        <StopWatch />
+        <StopWatch choreName={currentChore.choreName} />
       </div>
     </ThemeProvider>
   );

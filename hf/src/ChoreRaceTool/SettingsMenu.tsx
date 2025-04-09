@@ -54,7 +54,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
     setAddChoreMenu(null);
   };
 
-  const handleAddNewChore = () => {};
+  const handleAddNewChore = () => {}; //////////////////////////////////////////////
 
   return (
     <Dialog

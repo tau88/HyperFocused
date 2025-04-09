@@ -6,8 +6,11 @@ import ErrorPage from "./ErrorPage";
 import PomodoroTool from "./PomodoroTool";
 import TimeTranTool from "./TimeTranTool";
 import ChoreRaceTool from "./ChoreRaceTool";
+import initializeChoreData from "./ChoreRaceTool/initializeChoreData";
 
 const App: React.FC = () => {
+  initializeChoreData();
+
   return (
     <Router>
       <Routes>
