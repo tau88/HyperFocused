@@ -16,7 +16,6 @@ import SyncAltTwoToneIcon from "@mui/icons-material/SyncAltTwoTone";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import pink from "@mui/material/colors/pink";
-import green from "@mui/material/colors/green";
 
 import SettingsMenu from "./SettingsMenu";
 import { TimeTranToolProps, timeUnit, initialTimeUnits } from "./types";

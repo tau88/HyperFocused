@@ -16,7 +16,7 @@ import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 
 import RacerDisplay from "./RacerDisplay";
 import SettingsMenu from "./SettingsMenu";
-import { ChoreRaceToolProps } from "./types";
+import { ChoreRaceToolProps, choreRacerType, initialChoreList } from "./types";
 import theme from "./theme";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
@@ -31,14 +31,13 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
     null
   );
 
-  const [currentChore, setCurrentChore] = React.useState<string>("None");
-  const [savedChoreList, setSavedChoreList] = React.useState<string[]>([
-    "Folding Laundry",
-    "Washing Dishes",
-    "Making the Bed",
-    "Sweeping and Mopping the Kitchen",
-    "Water the Plants",
-  ]);
+  const [currentChore, setCurrentChore] = React.useState<choreRacerType>({
+    choreName: "None",
+    unitOfMeasurement: "None",
+    unitsPerSecond: "None",
+  });
+  const [savedChoreList, setSavedChoreList] =
+    React.useState<choreRacerType[]>(initialChoreList);
 
   const handleSettingsMenu = (event: React.MouseEvent<HTMLElement>) => {
     setSettingsMenu(event.currentTarget);
@@ -49,7 +48,13 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
   };
 
   const handleChangeChore = (event: SelectChangeEvent) => {
-    setCurrentChore(event.target.value);
+    const name = event.target.value;
+
+    const tempChore: choreRacerType | undefined = savedChoreList.find((i) => {
+      return i.choreName === name;
+    });
+
+    if (tempChore !== undefined) setCurrentChore(tempChore);
   };
 
   return (
@@ -108,23 +113,17 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
           </Toolbar>
         </AppBar>
         <Select
-          value={currentChore}
+          value={currentChore.choreName}
           onChange={handleChangeChore}
           inputProps={{ "aria-label": "Without label" }}
           renderValue={(value) => value}
           style={{ margin: "20px", width: "90vw" }}
         >
-          <MenuItem value={"Folding Laundry"}>Folding Laundry</MenuItem>
-          <MenuItem value={"Washing Dishes"}>Washing Dishes</MenuItem>
-          <MenuItem value={"Making the Bed"}>Making the Bed</MenuItem>
-          <MenuItem value={"Sweeping and Mopping the Kitchen"}>
-            CUSTOM: Sweeping and Mopping the Kitchen
-          </MenuItem>
-          <MenuItem value={"Water the Plants"}>
-            CUSTOM: Water the Plants
-          </MenuItem>
+          {savedChoreList.map(function (item, i) {
+            return <MenuItem value={item.choreName}>{item.choreName}</MenuItem>;
+          })}
         </Select>
-        {currentChore === "None" ? (
+        {currentChore.choreName === "None" ? (
           ""
         ) : (
           <RacerDisplay currentChore={currentChore} />

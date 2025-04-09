@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import Grid from "@mui/material/Grid2";
 import Button from "@mui/material/Button";
@@ -6,15 +6,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Divider from "@mui/material/Divider";
+import MenuList from "@mui/material/MenuList";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
-import RefreshTwoToneIcon from "@mui/icons-material/RefreshTwoTone";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { columns, SettingsMenuProps } from "./types";
+import NewChoreMenu from "./NewChoreMenu";
+import { SettingsMenuProps, choreRacerType } from "./types";
 
 const SettingsMenu: React.FC<SettingsMenuProps> = ({
   open,
@@ -24,34 +31,10 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
 
   ...props
 }) => {
-  const [value, setValue] = React.useState<string[]>(savedChoreList);
-
-  const [rows, setRows] = React.useState<string[]>(savedChoreList);
-
-  const validateField = (lower: number, upper: number, value: string) => {
-    if (isNaN(Number(value)) || value === "") {
-      return "Numbers only!";
-    } else if (Number(value) < lower) {
-      return "Enter at least " + lower + "!";
-    } else if (Number(value) > upper) {
-      return "Enter less than " + upper + "!";
-    } else {
-      return "";
-    }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setValue((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleReset = () => {
-    setValue(savedChoreList);
-  };
+  const [value, setValue] = React.useState<choreRacerType[]>(savedChoreList);
+  const [addChoreMenu, setAddChoreMenu] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleCloseNoSave = () => {
     setValue(savedChoreList);
@@ -62,6 +45,16 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
     setSavedChoreList(value);
     handleClose();
   };
+
+  const handleOpenNewChoreMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAddChoreMenu(event.currentTarget);
+  };
+
+  const handleCloseNewChoreMenu = () => {
+    setAddChoreMenu(null);
+  };
+
+  const handleAddNewChore = () => {};
 
   return (
     <Dialog
@@ -87,18 +80,39 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
       <DialogContent dividers style={{ paddingBottom: "0px" }}>
         <Grid container>
           <Grid size={5}>
-            <Paper sx={{ height: "50vh", width: "100%" }}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                sx={{ border: 0 }}
-                hideFooterPagination
-                hideFooter
-              />
+            <Paper sx={{ minWidth: "33vw" }}>
+              <MenuList>
+                {savedChoreList.map(function (item, i) {
+                  return (
+                    <MenuItem>
+                      <ListItemIcon>
+                        <FavoriteBorderIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText>{savedChoreList[i].choreName}</ListItemText>
+                      <ListItemIcon>
+                        <DeleteTwoToneIcon fontSize="small" />
+                      </ListItemIcon>
+                    </MenuItem>
+                  );
+                })}
+                <Divider />
+                <MenuItem onClick={handleOpenNewChoreMenu}>
+                  <ListItemIcon>
+                    <AddTwoToneIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Add Custom Chore</ListItemText>
+                </MenuItem>
+              </MenuList>
             </Paper>
           </Grid>
         </Grid>
       </DialogContent>
+      <NewChoreMenu
+        open={Boolean(addChoreMenu)}
+        handleClose={handleCloseNewChoreMenu}
+        savedChoreList={savedChoreList}
+        setSavedChoreList={setSavedChoreList}
+      />
       <DialogActions>
         <Button
           autoFocus

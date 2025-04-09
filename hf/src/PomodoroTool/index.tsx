@@ -9,7 +9,6 @@ import Button from "@mui/material/Button";
 
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
-import blue from "@mui/material/colors/blue";
 
 import SettingsMenu from "./SettingsMenu";
 import CountdownTimer from "./CountdownTimer";

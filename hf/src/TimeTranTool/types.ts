@@ -36,12 +36,6 @@ export type SettingsMenuProps = {
   addTimeUnit: (key: string, value: number) => void;
 };
 
-export type timeUnitTableProps = {
-  favorited: boolean;
-  name: string;
-  value: number;
-};
-
 export const columns: GridColDef[] = [
   { field: "favorite", headerName: "fav", width: 50 },
   { field: "name", headerName: "Time Unit", width: 200 },

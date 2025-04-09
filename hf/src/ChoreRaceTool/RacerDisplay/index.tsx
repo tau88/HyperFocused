@@ -22,7 +22,7 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
   const videoSpacing: string = "10vw";
 
   const displayVideo = (bestOrPrev: boolean) => {
-    switch (currentChore) {
+    switch (currentChore.choreName) {
       case "Folding Laundry":
         return (
           <img
@@ -51,86 +51,62 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
   };
 
   const displayStats = () => {
-    switch (currentChore) {
-      case "Folding Laundry":
-        return (
-          <Grid
-            container
-            spacing={3}
-            sx={{
-              justifyContent: "space-evenly",
-              alignItems: "flex-start",
-            }}
-          >
-            <Grid
-              sx={{
-                width: videoWidth,
-              }}
-            >
+    return (
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          justifyContent: "space-evenly",
+          alignItems: "flex-start",
+        }}
+      >
+        <Grid
+          sx={{
+            width: videoWidth,
+          }}
+        >
+          <h4>5:03</h4>
+          {currentChore.unitOfMeasurement !== "None" ? (
+            <>
               <h4>32</h4>
-              <h4>5:03</h4>
               <h4>9.46875</h4>
-            </Grid>
-            <Grid
-              sx={{
-                width: videoSpacing,
-              }}
-            >
-              <h4>Clothes Folded</h4>
-              <h4>Time Taken</h4>
-              <h4>Seconds / Fold</h4>
-            </Grid>
-            <Grid
-              sx={{
-                width: videoWidth,
-              }}
-            >
+            </>
+          ) : (
+            <></>
+          )}
+        </Grid>
+        <Grid
+          sx={{
+            width: videoSpacing,
+          }}
+        >
+          <h4>Time Taken</h4>
+          {currentChore.unitOfMeasurement !== "None" ? (
+            <>
+              <h4>{currentChore.unitOfMeasurement}</h4>
+              <h4>{currentChore.unitsPerSecond}</h4>
+            </>
+          ) : (
+            <></>
+          )}
+        </Grid>
+        <Grid
+          sx={{
+            width: videoWidth,
+          }}
+        >
+          <h4>8:24</h4>
+          {currentChore.unitOfMeasurement !== "None" ? (
+            <>
               <h4>45</h4>
-              <h4>8:24</h4>
               <h4>11.2</h4>
-            </Grid>
-          </Grid>
-        );
-      case "Washing Dishes":
-        return (
-          <Grid
-            container
-            spacing={3}
-            sx={{
-              justifyContent: "space-evenly",
-              alignItems: "flex-start",
-            }}
-          >
-            <Grid
-              sx={{
-                width: videoWidth,
-              }}
-            >
-              <h4>12</h4>
-              <h4>3:30</h4>
-              <h4>17.5</h4>
-            </Grid>
-            <Grid
-              sx={{
-                width: videoSpacing,
-              }}
-            >
-              <h4>Dishes Washed</h4>
-              <h4>Time Taken</h4>
-              <h4>Seconds / Dish</h4>
-            </Grid>
-            <Grid
-              sx={{
-                width: videoWidth,
-              }}
-            >
-              <h4>5</h4>
-              <h4>1:54</h4>
-              <h4>22.8</h4>
-            </Grid>
-          </Grid>
-        );
-    }
+            </>
+          ) : (
+            <></>
+          )}
+        </Grid>
+      </Grid>
+    );
   };
 
   return (

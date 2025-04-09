@@ -12,7 +12,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import CloseIcon from "@mui/icons-material/Close";
 
 import {
-  timeUnitTableProps,
   SettingsMenuProps,
   timeUnit,
   columns,
@@ -48,7 +47,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
   //   }
   // };
 
-  const tempRows: timeUnitTableProps[] = Object.entries(initialTimeUnits).map(
+  const tempRows: timeUnit[] = Object.entries(initialTimeUnits).map(
     ([key, unit], index) => ({
       id: index,
       key,
@@ -58,7 +57,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
     })
   );
 
-  const [rows, setRows] = React.useState<timeUnitTableProps[]>(tempRows);
+  const [rows, setRows] = React.useState<timeUnit[]>(tempRows);
 
   const handleCloseNoSave = () => {
     setValue(savedValue);

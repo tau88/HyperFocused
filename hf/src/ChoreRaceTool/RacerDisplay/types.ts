@@ -1,1 +1,3 @@
-export type RacerDisplayProps = { currentChore: string };
+import { choreRacerType } from "../types";
+
+export type RacerDisplayProps = { currentChore: choreRacerType };
