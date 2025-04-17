@@ -15,6 +15,7 @@ import dishes_prev from "./pics/placeholder_dishes_prev.png";
 
 const RacerDisplay: React.FC<RacerDisplayProps> = ({
   currentChore,
+  setSavedChoreList,
   ...props
 }) => {
   const videoWidth: string = "33vw";
@@ -181,7 +182,10 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
           </Grid>
         </Grid>
         {displayStats()}
-        <StopWatch choreName={currentChore.choreName} />
+        <StopWatch
+          choreName={currentChore.choreName}
+          setSavedChoreList={setSavedChoreList}
+        />
       </div>
     </ThemeProvider>
   );

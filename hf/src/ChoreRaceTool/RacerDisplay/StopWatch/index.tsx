@@ -15,10 +15,14 @@ import ControlButtons from "./ControlButtons";
 import {
   saveTrialDataUnits,
   saveTrialDataNoUnits,
+  loadTrialData,
 } from "../../ChoreRacerJSONManager";
 import { StopWatchProps } from "./types";
 
-const StopWatch: React.FC<StopWatchProps> = ({ choreName }) => {
+const StopWatch: React.FC<StopWatchProps> = ({
+  choreName,
+  setSavedChoreList,
+}) => {
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
   const [time, setTime] = useState(0);
@@ -76,8 +80,10 @@ const StopWatch: React.FC<StopWatchProps> = ({ choreName }) => {
   const handleCloseSave = () => {
     const timeInSec = time / 1000;
 
-    if (units !== 0) saveTrialDataUnits(choreName, timeInSec, units);
-    else saveTrialDataNoUnits(choreName, timeInSec);
+    if (units !== 0) {
+      saveTrialDataUnits(choreName, timeInSec, units);
+      setSavedChoreList(loadTrialData());
+    } else saveTrialDataNoUnits(choreName, timeInSec);
     setSaveTimeMenu(null);
     setTime(0);
   };

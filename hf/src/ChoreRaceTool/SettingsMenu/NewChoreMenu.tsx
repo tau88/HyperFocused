@@ -9,11 +9,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 
+import { Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import RefreshTwoToneIcon from "@mui/icons-material/RefreshTwoTone";
 
-import { createNewChore } from "./ChoreRacerJSONManager";
-import { NewChoreMenuProps, choreRacerType } from "./types";
+import { createNewChore } from "../ChoreRacerJSONManager";
+import { NewChoreMenuProps, choreRacerType } from "../types";
 
 const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
   open,
@@ -27,6 +28,7 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
     choreName: "",
     unitOfMeasurement: "",
     unitsPerSecond: "",
+    favorite: false,
     previous: {
       units: 1,
       time: 99999,
@@ -111,7 +113,12 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
       maxWidth={"sm"}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Add a New Chore: Enter None if chore doesn't have units
+        <Typography variant="h5">
+          <b>Add a New Chore:</b>
+        </Typography>
+        <Typography variant="caption">
+          Enter None if chore doesn't have units
+        </Typography>
       </DialogTitle>
       <IconButton
         aria-label="close"

@@ -36,6 +36,7 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
     choreName: "None",
     unitOfMeasurement: "None",
     unitsPerSecond: "None",
+    favorite: false,
     previous: {
       units: 1,
       time: 99999,
@@ -144,7 +145,10 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
         currentChore.unitsPerSecond === "None" ? (
           ""
         ) : (
-          <RacerDisplay currentChore={currentChore} />
+          <RacerDisplay
+            currentChore={currentChore}
+            setSavedChoreList={setSavedChoreList}
+          />
         )}
       </div>
     </ThemeProvider>

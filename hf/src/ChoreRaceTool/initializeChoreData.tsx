@@ -4,6 +4,7 @@ const defaultChoreData = {
       choreName: "Folding Laundry",
       unitOfMeasurement: "Clothes Folded",
       unitsPerSecond: "Seconds / Fold",
+      favorite: false,
       best: {
         units: 26,
         time: 421,
@@ -17,6 +18,7 @@ const defaultChoreData = {
       choreName: "Washing Dishes",
       unitOfMeasurement: "Dishes Washed",
       unitsPerSecond: "Seconds / Dish",
+      favorite: false,
       best: {
         units: 30,
         time: 1376,
@@ -30,6 +32,7 @@ const defaultChoreData = {
       choreName: "Making the Bed",
       unitOfMeasurement: "None",
       unitsPerSecond: "None",
+      favorite: false,
       best: {
         units: 0,
         time: 135,
@@ -43,6 +46,7 @@ const defaultChoreData = {
       choreName: "CUSTOM: Sweeping and Mopping the Kitchen",
       unitOfMeasurement: "None",
       unitsPerSecond: "None",
+      favorite: false,
       best: {
         units: 0,
         time: 319,
@@ -56,6 +60,7 @@ const defaultChoreData = {
       choreName: "CUSTOM: Water the Plants",
       unitOfMeasurement: "None",
       unitsPerSecond: "None",
+      favorite: false,
       best: {
         units: 0,
         time: 54,

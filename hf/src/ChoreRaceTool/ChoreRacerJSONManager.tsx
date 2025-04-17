@@ -89,7 +89,7 @@ export const saveTrialDataNoUnits = (choreName: string, time: number) => {
   }
 };
 
-// Save new time to file, this version is for chores with units
+// Save new chore to file
 export const createNewChore = (
   choreName: string,
   unitOfMeasurement: string,
@@ -103,11 +103,12 @@ export const createNewChore = (
     choreName: choreName,
     unitOfMeasurement: unitOfMeasurement,
     unitsPerSecond: unitsPerSecond,
-    previous: {
+    favorite: false,
+    best: {
       units: unitOfMeasurement === "None" ? 0 : 1,
       time: 99999,
     },
-    best: {
+    previous: {
       units: unitOfMeasurement === "None" ? 0 : 1,
       time: 99999,
     },
@@ -120,5 +121,16 @@ export const createNewChore = (
       "choreData",
       JSON.stringify({ chores: updatedChores })
     );
+  }
+};
+
+// Save any changes to chore data to choreData (favoriting and deleting)
+export const saveChoreMenu = (newChoreData: choreRacerType[]) => {
+  const stored = localStorage.getItem("choreData");
+  const choreData = stored ? JSON.parse(stored) : null;
+  console.log(choreData);
+
+  if (choreData) {
+    localStorage.setItem("choreData", JSON.stringify({ chores: newChoreData }));
   }
 };
