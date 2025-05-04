@@ -12,15 +12,12 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import Timer from "./Timer";
 import ControlButtons from "./ControlButtons";
-import {
-  saveTrialDataUnits,
-  saveTrialDataNoUnits,
-  loadTrialData,
-} from "../../ChoreRacerJSONManager";
+import { saveChoreMenu } from "../../ChoreRacerJSONManager";
 import { StopWatchProps } from "./types";
 
 const StopWatch: React.FC<StopWatchProps> = ({
   choreName,
+  savedChoreList,
   setSavedChoreList,
 }) => {
   const [isActive, setIsActive] = useState(false);
@@ -30,7 +27,7 @@ const StopWatch: React.FC<StopWatchProps> = ({
   const [saveTimeMenu, setSaveTimeMenu] = React.useState<null | HTMLElement>(
     null
   );
-  const [units, setUnits] = React.useState<number>(0);
+  const [units, setUnits] = React.useState<number>(1);
 
   React.useEffect(() => {
     let interval: number | undefined = undefined;
@@ -68,25 +65,65 @@ const StopWatch: React.FC<StopWatchProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
+    const unitcount = Number(value);
 
-    setUnits(Number(value));
+    if (unitcount > 0) {
+      setUnits(unitcount);
+    }
   };
 
   const handleCloseNoSave = () => {
     setSaveTimeMenu(null);
-    setTime(0);
   };
 
   const handleCloseSave = () => {
     const timeInSec = time / 1000;
+    const tempChoreList = [...savedChoreList];
+    const i = tempChoreList.findIndex((chore) => {
+      return chore.choreName === choreName;
+    });
 
-    if (units !== 0) {
-      saveTrialDataUnits(choreName, timeInSec, units);
-      setSavedChoreList(loadTrialData());
-    } else saveTrialDataNoUnits(choreName, timeInSec);
+    if (tempChoreList[i].unitOfMeasurement !== "None") {
+      const pastBestRatio =
+        tempChoreList[i].best.time / tempChoreList[i].best.units;
+      const currentRatio = timeInSec / units;
+
+      if (currentRatio < pastBestRatio)
+        tempChoreList[i] = {
+          ...tempChoreList[i],
+          best: { units: units, time: timeInSec },
+          previous: { units: units, time: timeInSec },
+        };
+      else
+        tempChoreList[i] = {
+          ...tempChoreList[i],
+          previous: { units: units, time: timeInSec },
+        };
+    } else {
+      if (timeInSec < tempChoreList[i].best.time)
+        tempChoreList[i] = {
+          ...tempChoreList[i],
+          best: { units: 0, time: timeInSec },
+          previous: { units: 0, time: timeInSec },
+        };
+      else
+        tempChoreList[i] = {
+          ...tempChoreList[i],
+          previous: { units: 0, time: timeInSec },
+        };
+    }
+
+    saveChoreMenu(tempChoreList);
+    setSavedChoreList(tempChoreList);
+
     setSaveTimeMenu(null);
     setTime(0);
+    setUnits(1);
   };
+
+  const i = savedChoreList.findIndex((chore) => {
+    return chore.choreName === choreName;
+  });
 
   return (
     <div className="stop-watch">
@@ -104,8 +141,8 @@ const StopWatch: React.FC<StopWatchProps> = ({
         aria-labelledby="customized-dialog-title"
         open={Boolean(saveTimeMenu)}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Settings
+        <DialogTitle sx={{ paddingBottom: "8px" }} id="customized-dialog-title">
+          Chore Complete!
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -120,17 +157,21 @@ const StopWatch: React.FC<StopWatchProps> = ({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers style={{ paddingBottom: "0px" }}>
-          <div style={{ marginTop: "-10px", marginBottom: "10px" }}>
+          <div style={{ marginTop: "-25px", marginBottom: "10px" }}>
             <h3>Congrats! You finished in {time / 1000} seconds!</h3>
-            <TextField
-              required
-              label="Number of Items"
-              type="number"
-              name="units"
-              variant="outlined"
-              value={units}
-              onChange={handleChange}
-            />
+            {savedChoreList[i].unitOfMeasurement === "None" ? (
+              ""
+            ) : (
+              <TextField
+                required
+                label="Number of Items"
+                type="number"
+                name="units"
+                variant="outlined"
+                value={units}
+                onChange={handleChange}
+              />
+            )}
           </div>
         </DialogContent>
         <DialogActions>
@@ -141,6 +182,14 @@ const StopWatch: React.FC<StopWatchProps> = ({
             onClick={handleCloseSave}
           >
             Save and Exit
+          </Button>
+          <Button
+            autoFocus
+            variant="contained"
+            color="primary"
+            onClick={handleCloseNoSave}
+          >
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

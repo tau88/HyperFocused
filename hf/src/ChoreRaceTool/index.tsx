@@ -17,7 +17,7 @@ import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import { loadTrialData } from "./ChoreRacerJSONManager";
 import RacerDisplay from "./RacerDisplay";
 import SettingsMenu from "./SettingsMenu";
-import { ChoreRaceToolProps, choreRacerType } from "./types";
+import { ChoreRaceToolProps, choreRacerType, basicChore } from "./types";
 import theme from "./theme";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
@@ -28,34 +28,28 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
     navigate("/");
   };
 
-  const [settingsMenu, setSettingsMenu] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const [currentChore, setCurrentChore] = React.useState<choreRacerType>({
-    choreName: "None",
-    unitOfMeasurement: "None",
-    unitsPerSecond: "None",
-    favorite: false,
-    previous: {
-      units: 1,
-      time: 99999,
-    },
-    best: {
-      units: 1,
-      time: 99999,
-    },
-  });
+  const [currentChore, setCurrentChore] =
+    React.useState<choreRacerType>(basicChore);
 
   const initialChoreList = loadTrialData();
 
   const [savedChoreList, setSavedChoreList] =
     React.useState<choreRacerType[]>(initialChoreList);
 
-  // React.useEffect(() => {
-  //   if (currentChore.choreName !== "None")
-  //     setCurrentChore(loadTrialData(currentChore.choreName));
-  // }, [currentChore]);
+  React.useEffect(() => {
+    const updatedChore = savedChoreList.find(
+      (chore) => chore.choreName === currentChore.choreName
+    );
+
+    if (updatedChore) {
+      setCurrentChore(updatedChore);
+    } else setCurrentChore(basicChore);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentChore.choreName, savedChoreList]);
+
+  const [settingsMenu, setSettingsMenu] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleSettingsMenu = (event: React.MouseEvent<HTMLElement>) => {
     setSettingsMenu(event.currentTarget);
@@ -124,6 +118,8 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
               <SettingsMenu
                 open={Boolean(settingsMenu)}
                 handleClose={handleCloseSettingsMenu}
+                currentChore={currentChore}
+                setCurrentChore={setCurrentChore}
                 savedChoreList={savedChoreList}
                 setSavedChoreList={setSavedChoreList}
               />
@@ -147,6 +143,7 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
         ) : (
           <RacerDisplay
             currentChore={currentChore}
+            savedChoreList={savedChoreList}
             setSavedChoreList={setSavedChoreList}
           />
         )}

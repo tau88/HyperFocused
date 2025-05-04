@@ -2,6 +2,7 @@ import { choreRacerType } from "../../types";
 
 export type StopWatchProps = {
   choreName: string;
+  savedChoreList: choreRacerType[];
   setSavedChoreList: React.Dispatch<React.SetStateAction<choreRacerType[]>>;
 };
 

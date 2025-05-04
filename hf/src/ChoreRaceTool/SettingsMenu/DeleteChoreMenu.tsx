@@ -7,14 +7,17 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 
 import CloseIcon from "@mui/icons-material/Close";
-
-import { DeleteChoreMenuProps } from "../types";
 import { Typography } from "@mui/material";
+
+import { DeleteChoreMenuProps } from "./types";
+import { basicChore } from "../types";
 
 const DeleteChoreMenu: React.FC<DeleteChoreMenuProps> = ({
   open,
   handleClose,
   choreName,
+  currentChore,
+  setCurrentChore,
   savedChoreList,
   setSavedChoreList,
 
@@ -28,6 +31,8 @@ const DeleteChoreMenu: React.FC<DeleteChoreMenuProps> = ({
     const tempVal = savedChoreList.filter(
       (chore) => chore.choreName !== choreName
     );
+
+    if (currentChore.choreName === choreName) setCurrentChore(basicChore);
 
     setSavedChoreList(tempVal);
 

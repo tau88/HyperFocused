@@ -13,8 +13,8 @@ import { Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import RefreshTwoToneIcon from "@mui/icons-material/RefreshTwoTone";
 
-import { createNewChore } from "../ChoreRacerJSONManager";
-import { NewChoreMenuProps, choreRacerType } from "../types";
+import { NewChoreMenuProps } from "./types";
+import { choreRacerType } from "../types";
 
 const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
   open,
@@ -58,11 +58,6 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
         units: 0,
       }));
     setSavedChoreList([...savedChoreList, value]);
-    createNewChore(
-      value.choreName,
-      value.unitOfMeasurement,
-      value.unitsPerSecond
-    );
     handleClose();
   };
 

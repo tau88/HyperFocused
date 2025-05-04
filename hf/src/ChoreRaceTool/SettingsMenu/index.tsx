@@ -24,11 +24,13 @@ import pink from "@mui/material/colors/pink";
 import NewChoreMenu from "./NewChoreMenu";
 import DeleteChoreMenu from "./DeleteChoreMenu";
 import { saveChoreMenu } from "../ChoreRacerJSONManager";
-import { SettingsMenuProps } from "../types";
+import { SettingsMenuProps } from "./types";
 
 const SettingsMenu: React.FC<SettingsMenuProps> = ({
   open,
   handleClose,
+  currentChore,
+  setCurrentChore,
   savedChoreList,
   setSavedChoreList,
 
@@ -185,6 +187,8 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
         open={Boolean(deleteChoreMenu)}
         handleClose={handleCloseDeleteChoreMenu}
         choreName={selectedChore}
+        currentChore={currentChore}
+        setCurrentChore={setCurrentChore}
         savedChoreList={tempChoreList}
         setSavedChoreList={setTempChoreList}
       />

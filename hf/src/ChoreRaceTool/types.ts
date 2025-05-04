@@ -15,37 +15,17 @@ export type choreRacerType = {
   };
 };
 
-export type SettingsMenuProps = {
-  /** Is settings menu open */
-  open: boolean;
-  /** Handle closing menu */
-  handleClose: () => void;
-  /** Saved values for pomodoro settings */
-  savedChoreList: choreRacerType[];
-  /** Set saved values for pomodoro settings */
-  setSavedChoreList: React.Dispatch<React.SetStateAction<choreRacerType[]>>;
-};
-
-export type NewChoreMenuProps = {
-  /** Is settings menu open */
-  open: boolean;
-  /** Handle closing menu */
-  handleClose: () => void;
-  /** Saved values for pomodoro settings */
-  savedChoreList: choreRacerType[];
-  /** Set saved values for pomodoro settings */
-  setSavedChoreList: React.Dispatch<React.SetStateAction<choreRacerType[]>>;
-};
-
-export type DeleteChoreMenuProps = {
-  /** Is settings menu open */
-  open: boolean;
-  /** Handle closing menu */
-  handleClose: () => void;
-  /** name of chore to be deleted */
-  choreName: string;
-  /** Saved values for pomodoro settings */
-  savedChoreList: choreRacerType[];
-  /** Set saved values for pomodoro settings */
-  setSavedChoreList: React.Dispatch<React.SetStateAction<choreRacerType[]>>;
+export const basicChore: choreRacerType = {
+  choreName: "None",
+  unitOfMeasurement: "None",
+  unitsPerSecond: "None",
+  favorite: false,
+  previous: {
+    units: 1,
+    time: 99999,
+  },
+  best: {
+    units: 1,
+    time: 99999,
+  },
 };
