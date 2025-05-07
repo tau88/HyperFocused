@@ -1,8 +1,10 @@
+import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
+
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import pink from "@mui/material/colors/pink";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import { pink } from "@mui/material/colors";
 
 import { timeUnit } from "../types";
 

@@ -1,9 +1,8 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("renders home page link", () => {
+test("should show the home page when navigated", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  expect(screen.getByText("Welcome to HyperFocused!")).toBeInTheDocument();
 });

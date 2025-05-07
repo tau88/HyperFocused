@@ -3,7 +3,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 
 import { ControlButtonsProps } from "./types";
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 
 const ControlButtons: React.FC<ControlButtonsProps> = (
   {

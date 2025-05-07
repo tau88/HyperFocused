@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,7 +14,7 @@ import SettingsMenu from "./SettingsMenu";
 import CountdownTimer from "./CountdownTimer";
 import { PomodoroPhaseTypes, PomodoroToolProps, pomoValuesType } from "./types";
 import theme from "./theme";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { ThemeProvider } from "@mui/material/styles";
 
 const PomodoroTool: React.FC<PomodoroToolProps> = ({ ...props }) => {
   const navigate = useNavigate();
@@ -98,9 +98,10 @@ const PomodoroTool: React.FC<PomodoroToolProps> = ({ ...props }) => {
       >
         <AppBar position="static">
           <Toolbar>
-            <IconButton aria-label="delete" size="large">
+            <IconButton aria-label="home" size="large">
               <HomeTwoToneIcon
                 onClick={handleNav_Home}
+                data-testid={"home-button"}
                 color="secondary"
                 sx={{
                   fontSize: "36px",
@@ -117,14 +118,18 @@ const PomodoroTool: React.FC<PomodoroToolProps> = ({ ...props }) => {
               <b>Pomodoro Tool</b>
             </Typography>
             <div>
-              <IconButton aria-label="delete" size="large">
+              <IconButton
+                aria-label="settings"
+                size="large"
+                onClick={handleSettingsMenu}
+              >
                 <SettingsTwoToneIcon
+                  data-testid={"settings-button"}
                   color="secondary"
                   sx={{
                     fontSize: "36px",
                     cursor: "pointer",
                   }}
-                  onClick={handleSettingsMenu}
                 />
               </IconButton>
               <SettingsMenu
@@ -145,6 +150,7 @@ const PomodoroTool: React.FC<PomodoroToolProps> = ({ ...props }) => {
           <div style={{ padding: "10px" }}>
             <Button
               onClick={handlePhaseChange}
+              data-testid={"next-pomo-button"}
               variant="contained"
               color="secondary"
               style={{ margin: "10px" }}
@@ -153,6 +159,7 @@ const PomodoroTool: React.FC<PomodoroToolProps> = ({ ...props }) => {
             </Button>
             <Button
               onClick={handleResetCycles}
+              data-testid={"reset-pomo-button"}
               variant="contained"
               style={{ margin: "10px" }}
             >

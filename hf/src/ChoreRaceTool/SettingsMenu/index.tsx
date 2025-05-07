@@ -1,6 +1,6 @@
 import React from "react";
 
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -19,7 +19,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 import CloseIcon from "@mui/icons-material/Close";
-import pink from "@mui/material/colors/pink";
+import { pink } from "@mui/material/colors";
 
 import NewChoreMenu from "./NewChoreMenu";
 import DeleteChoreMenu from "./DeleteChoreMenu";
@@ -125,32 +125,43 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
                     <MenuItem>
                       <ListItemIcon>
                         {tempChoreList[i].favorite ? (
-                          <FavoriteIcon
+                          <IconButton
+                            aria-label="favorite"
+                            size="large"
                             onClick={(
                               e: React.MouseEvent<HTMLButtonElement, MouseEvent>
                             ) => toggleChoreFavorite(e, i)}
-                            sx={{ color: pink[500] }}
-                          />
+                          >
+                            <FavoriteIcon sx={{ color: pink[500] }} />
+                          </IconButton>
                         ) : (
-                          <FavoriteBorderIcon
+                          <IconButton
+                            aria-label="favorite"
+                            size="large"
                             onClick={(
                               e: React.MouseEvent<HTMLButtonElement, MouseEvent>
                             ) => toggleChoreFavorite(e, i)}
-                          />
+                          >
+                            <FavoriteBorderIcon />
+                          </IconButton>
                         )}
                       </ListItemIcon>
                       <ListItemText>{tempChoreList[i].choreName}</ListItemText>
-                      <ListItemIcon
-                        onClick={(
-                          e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-                        ) =>
-                          handleOpenDeleteChoreMenu(
-                            e,
-                            tempChoreList[i].choreName
-                          )
-                        }
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
+                      <ListItemIcon>
+                        <IconButton
+                          aria-label="favorite"
+                          size="large"
+                          onClick={(
+                            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                          ) =>
+                            handleOpenDeleteChoreMenu(
+                              e,
+                              tempChoreList[i].choreName
+                            )
+                          }
+                        >
+                          <DeleteTwoToneIcon fontSize="small" />
+                        </IconButton>
                       </ListItemIcon>
                     </MenuItem>
                   );

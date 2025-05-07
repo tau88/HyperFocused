@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 
 import AlarmOnTwoToneIcon from "@mui/icons-material/AlarmOnTwoTone";
 import BrowseGalleryTwoToneIcon from "@mui/icons-material/BrowseGalleryTwoTone";
@@ -38,6 +38,7 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
 
   const pomoIcon = () => (
     <AlarmOnTwoToneIcon
+      data-testid={"pomo-icon"}
       onClick={handleNav_Pomo}
       sx={{ fontSize: "7vw", color: blue[400], cursor: "pointer" }}
     />
@@ -66,6 +67,7 @@ const HomePage: React.FC<HomePageProps> = ({ ...props }) => {
 
   const examIcon = () => (
     <CheckBoxOutlineBlankTwoToneIcon
+      data-testid={"error-icon"}
       onClick={handleNav_Dead}
       sx={{ fontSize: "7vw", color: red[800], cursor: "pointer" }}
     />

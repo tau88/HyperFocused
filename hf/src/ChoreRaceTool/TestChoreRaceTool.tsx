@@ -14,10 +14,9 @@ import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 // import SyncAltTwoToneIcon from "@mui/icons-material/SyncAltTwoTone";
 // import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-import { loadTrialData } from "./ChoreRacerJSONManager";
 import RacerDisplay from "./RacerDisplay";
 import SettingsMenu from "./SettingsMenu";
-import { ChoreRaceToolProps, choreRacerType, basicChore } from "./types";
+import { ChoreRaceToolProps, choreRacerType } from "./types";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -28,10 +27,82 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
     navigate("/");
   };
 
-  const [currentChore, setCurrentChore] =
-    React.useState<choreRacerType>(basicChore);
+  const initialChoreList = [
+    {
+      choreName: "Folding Laundry",
+      unitOfMeasurement: "Clothes Folded",
+      unitsPerSecond: "Seconds / Fold",
+      favorite: false,
+      best: {
+        units: 26,
+        time: 421,
+      },
+      previous: {
+        units: 33,
+        time: 600,
+      },
+    },
+    {
+      choreName: "Washing Dishes",
+      unitOfMeasurement: "Dishes Washed",
+      unitsPerSecond: "Seconds / Dish",
+      favorite: false,
+      best: {
+        units: 30,
+        time: 1376,
+      },
+      previous: {
+        units: 14,
+        time: 712,
+      },
+    },
+    {
+      choreName: "Making the Bed",
+      unitOfMeasurement: "None",
+      unitsPerSecond: "None",
+      favorite: false,
+      best: {
+        units: 0,
+        time: 135,
+      },
+      previous: {
+        units: 0,
+        time: 135,
+      },
+    },
+    {
+      choreName: "CUSTOM: Sweeping and Mopping the Kitchen",
+      unitOfMeasurement: "None",
+      unitsPerSecond: "None",
+      favorite: false,
+      best: {
+        units: 0,
+        time: 319,
+      },
+      previous: {
+        units: 0,
+        time: 553,
+      },
+    },
+    {
+      choreName: "CUSTOM: Water the Plants",
+      unitOfMeasurement: "None",
+      unitsPerSecond: "None",
+      favorite: false,
+      best: {
+        units: 0,
+        time: 54,
+      },
+      previous: {
+        units: 0,
+        time: 62,
+      },
+    },
+  ];
 
-  const initialChoreList = loadTrialData();
+  const [currentChore, setCurrentChore] = React.useState<choreRacerType>(
+    initialChoreList[0]
+  );
 
   const [savedChoreList, setSavedChoreList] =
     React.useState<choreRacerType[]>(initialChoreList);
@@ -43,7 +114,7 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
 
     if (updatedChore) {
       setCurrentChore(updatedChore);
-    } else setCurrentChore(basicChore);
+    } else setCurrentChore(initialChoreList[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChore.choreName, savedChoreList]);
 
@@ -89,6 +160,7 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
             <IconButton aria-label="delete" size="large">
               <HomeTwoToneIcon
                 onClick={handleNav_Home}
+                data-testid={"HomeTwoToneIcon"}
                 color="secondary"
                 sx={{
                   fontSize: "36px",
@@ -110,6 +182,7 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
               onClick={handleSettingsMenu}
             >
               <SettingsTwoToneIcon
+                data-testid={"SettingsTwoToneIcon"}
                 color="secondary"
                 sx={{
                   fontSize: "36px",
@@ -128,11 +201,11 @@ const ChoreRaceTool: React.FC<ChoreRaceToolProps> = ({ ...props }) => {
           </Toolbar>
         </AppBar>
         <Select
+          data-testid={"dropdown"}
           value={
             currentChore.choreName === "None" ? "" : currentChore.choreName
           }
           onChange={handleChangeChore}
-          displayEmpty
           inputProps={{ "aria-label": "Without label" }}
           renderValue={(value) => value}
           style={{ margin: "20px", width: "90vw" }}

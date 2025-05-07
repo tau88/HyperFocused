@@ -1,12 +1,12 @@
 import React from "react";
 
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 // import Box from "@mui/material/Box";
 
 import StopWatch from "./StopWatch";
 import { RacerDisplayProps } from "./types";
 import theme from "./theme";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { ThemeProvider } from "@mui/material/styles";
 
 const RacerDisplay: React.FC<RacerDisplayProps> = ({
   currentChore,
@@ -130,7 +130,7 @@ const RacerDisplay: React.FC<RacerDisplayProps> = ({
             </Box> */}
             <h2>Personal Best</h2>
           </Grid>
-          <Grid item sx={{ width: videoSpacing }} />
+          <Grid sx={{ width: videoSpacing }} />
           <Grid>
             {/* <Box
               sx={{

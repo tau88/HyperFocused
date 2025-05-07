@@ -5,7 +5,7 @@ export const loadTrialData = (): choreRacerType[] => {
   const stored = localStorage.getItem("choreData");
   const choreData = stored ? JSON.parse(stored) : null;
 
-  console.log(choreData.chores);
+  // console.log(choreData.chores);
   return choreData.chores;
 };
 
@@ -27,7 +27,7 @@ export const loadTrialDataOfChore = (choreName: string): choreRacerType => {
 export const saveChoreMenu = (newChoreData: choreRacerType[]) => {
   const stored = localStorage.getItem("choreData");
   const choreData = stored ? JSON.parse(stored) : null;
-  console.log(choreData);
+  // console.log(choreData);
 
   if (choreData) {
     localStorage.setItem("choreData", JSON.stringify({ chores: newChoreData }));

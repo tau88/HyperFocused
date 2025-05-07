@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -61,7 +61,9 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
       }));
   };
 
-  const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBlur = (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name } = event.target;
 
     if (!!errors[name]) {
@@ -130,7 +132,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
               value={value.pomoLength}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors.pomoLength}
+              error={errors.pomoLength ? true : false}
               helperText={errors.pomoLength ? errors.pomoLength : " "}
             />
           </Grid>
@@ -150,7 +152,6 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
           </Grid>
           <Grid
             container
-            item
             size={1}
             sx={{
               justifyContent: "flex-end",

@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -11,7 +11,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import pink from "@mui/material/colors/pink";
+import { pink } from "@mui/material/colors";
 
 import ExpandMoreStyles from "./ToolIconTemplate.styles";
 import { ToolIconTemplateProps } from "./types";
@@ -40,7 +40,10 @@ const ToolIconTemplate: React.FC<ToolIconTemplateProps> = ({
         title={title}
         action={
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
+            <IconButton
+              data-testid={"favorite-button"}
+              aria-label="add to favorites"
+            >
               {!favorite ? (
                 <FavoriteBorderIcon onClick={handleFavoriteClick} />
               ) : (
@@ -52,6 +55,7 @@ const ToolIconTemplate: React.FC<ToolIconTemplateProps> = ({
             </IconButton>
             <IconButton aria-label="settings">
               <ExpandMoreStyles
+                data-testid={"expand-button"}
                 expand={expanded}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}

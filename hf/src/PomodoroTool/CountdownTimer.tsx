@@ -59,6 +59,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
       <div style={{ marginTop: "10px" }}>
         <Button
           onClick={handleStart}
+          data-testid={"start-time-button"}
           variant="contained"
           color={"secondary"}
           disabled={isActive}
@@ -67,6 +68,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         </Button>
         <Button
           onClick={handleStop}
+          data-testid={"stop-time-button"}
           variant="contained"
           color="secondary"
           disabled={!isActive}
@@ -76,6 +78,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         </Button>
         <Button
           onClick={handleReset}
+          data-testid={"reset-time-button"}
           variant="contained"
           color="primary"
           style={{ marginLeft: "10px" }}

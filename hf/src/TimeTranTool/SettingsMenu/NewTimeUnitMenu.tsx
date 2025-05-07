@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -45,6 +45,7 @@ const NewTimeUnitMenu: React.FC<NewTimeUnitMenuProps> = ({
       !Object.values(value).some((key) => key === null || key === "")
     ) {
       setRows([...rows, { ...value, id: rows.length }]);
+      setValue(emptyNewTimeUnit);
       handleClose();
     }
   };

@@ -18,7 +18,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 
 import SettingsMenu from "./SettingsMenu";
-import { loadTimeUnitData, saveTimeUnitMenu } from "./TimeTranJSONManager";
 import { TimeTranToolProps, timeUnit } from "./types";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
@@ -30,7 +29,18 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
     navigate("/");
   };
 
-  const loadedTimeUnits = loadTimeUnitData();
+  const loadedTimeUnits = [
+    { name: "Seconds", value: 1, favorited: true },
+    { name: "Minutes", value: 60, favorited: false },
+    { name: "Hours", value: 3600, favorited: false },
+    { name: "Days", value: 86400, favorited: false },
+    { name: "Microcentury", value: 3155.7, favorited: false },
+    { name: "Nanocentury", value: 3.156, favorited: false },
+    { name: "Sacaramucci", value: 950400, favorited: false },
+    { name: "Showers", value: 480, favorited: false },
+    { name: "Walked Miles", value: 1020, favorited: false },
+    { name: "Songs", value: 180, favorited: false },
+  ];
   const initialTimeUnits = loadedTimeUnits.reduce((acc, unit) => {
     const key = unit.name.toLowerCase();
     acc[key] = unit;
@@ -69,8 +79,6 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
 
     //Save change to useState
     setTimeUnitList(finalRecordTimeUnitList);
-    //Save change to local storage
-    saveTimeUnitMenu(tempFlatTimeUnitList);
   };
 
   const [input, setInput] = React.useState("1");
@@ -151,6 +159,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
             <IconButton aria-label="delete" size="large">
               <HomeTwoToneIcon
                 onClick={handleNav_Home}
+                data-testid={"HomeTwoToneIcon"}
                 color="secondary"
                 sx={{
                   fontSize: "36px",
@@ -173,6 +182,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
                 onClick={handleSettingsMenu}
               >
                 <SettingsTwoToneIcon
+                  data-testid={"SettingsTwoToneIcon"}
                   color="secondary"
                   sx={{
                     fontSize: "36px",
@@ -211,6 +221,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
             </Grid>
             <Grid size={2}>
               <SyncAltTwoToneIcon
+                data-testid={"SyncAltTwoToneIcon"}
                 color="secondary"
                 style={{ fontSize: "60px" }}
                 onClick={handleSwitchUnits}
@@ -241,6 +252,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
             <Grid size={5}>
               <Select
                 value={unitOne}
+                data-testid={"dropdown"}
                 onChange={handleChangeUnitOne}
                 fullWidth
                 inputProps={{ "aria-label": "Without label" }}

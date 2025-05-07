@@ -1,6 +1,6 @@
 import React from "react";
 
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -148,7 +148,6 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
           <Grid size={5}></Grid>
           <Grid
             container
-            item
             size={1}
             sx={{
               justifyContent: "flex-end",

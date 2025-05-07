@@ -13,7 +13,7 @@ export const loadTimeUnitData = (): timeUnit[] => {
 export const saveTimeUnitMenu = (newTimeUnitData: timeUnit[]) => {
   const stored = localStorage.getItem("timeUnitData");
   const timeUnitData = stored ? JSON.parse(stored) : null;
-  console.log(timeUnitData);
+  // console.log(timeUnitData);
 
   if (timeUnitData) {
     localStorage.setItem(
