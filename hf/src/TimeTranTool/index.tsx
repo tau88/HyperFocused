@@ -18,7 +18,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import pink from "@mui/material/colors/pink";
 
 import SettingsMenu from "./SettingsMenu";
-import { TimeTranToolProps, timeUnit, initialTimeUnits } from "./types";
+import { loadTimeUnitData, saveTimeUnitMenu } from "./TimeTranJSONManager";
+import { TimeTranToolProps, timeUnit } from "./types";
 import theme from "./theme";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
@@ -29,16 +30,15 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
     navigate("/");
   };
 
+  const loadedTimeUnits = loadTimeUnitData();
+  const initialTimeUnits = loadedTimeUnits.reduce((acc, unit) => {
+    const key = unit.name.toLowerCase();
+    acc[key] = unit;
+    return acc;
+  }, {} as Record<string, timeUnit>);
+
   const [timeUnitList, setTimeUnitList] =
     React.useState<Record<string, timeUnit>>(initialTimeUnits);
-
-  // Function to add a new time unit dynamically
-  const addTimeUnit = (key: string, value: number) => {
-    setTimeUnitList((prev) => ({
-      ...prev,
-      [key]: { name: key, value: value, favorited: false },
-    }));
-  };
 
   // Function to toggle the "favorited" status of a time unit
   const toggleTimeFavorite = (
@@ -47,10 +47,30 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
   ) => {
     event.stopPropagation();
 
-    setTimeUnitList((prev) => ({
-      ...prev,
-      [key]: { ...prev[key], favorited: !prev[key].favorited },
-    }));
+    //Toggle favorited status
+    const tempRecordTimeUnitList = { ...timeUnitList };
+    tempRecordTimeUnitList[key] = {
+      ...tempRecordTimeUnitList[key],
+      favorited: !tempRecordTimeUnitList[key].favorited,
+    };
+
+    //Once favorite updated, convert records to array for sorting favorites to the top
+    const tempFlatTimeUnitList = Object.values(tempRecordTimeUnitList);
+    tempFlatTimeUnitList.sort(
+      (a, b) => Number(b.favorited) - Number(a.favorited)
+    );
+
+    //Convert back to a record for the useState (which takes records, not arrays)
+    const finalRecordTimeUnitList = tempFlatTimeUnitList.reduce((acc, unit) => {
+      const key = unit.name.toLowerCase();
+      acc[key] = unit;
+      return acc;
+    }, {} as Record<string, timeUnit>);
+
+    //Save change to useState
+    setTimeUnitList(finalRecordTimeUnitList);
+    //Save change to local storage
+    saveTimeUnitMenu(tempFlatTimeUnitList);
   };
 
   const [input, setInput] = React.useState("1");
@@ -162,7 +182,6 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
                 handleClose={handleCloseSettingsMenu}
                 savedValue={timeUnitList}
                 setSavedValue={setTimeUnitList}
-                addTimeUnit={addTimeUnit}
               />
             </div>
           </Toolbar>
@@ -225,7 +244,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
                 renderValue={(value) => value}
               >
                 {Object.entries(timeUnitList).map(([key, timeUnit]) => (
-                  <MenuItem value={timeUnit.name}>
+                  <MenuItem value={timeUnit.name} key={key}>
                     {timeUnit.favorited ? (
                       <FavoriteIcon
                         onClick={(
@@ -256,7 +275,7 @@ const TimeTranTool: React.FC<TimeTranToolProps> = ({ ...props }) => {
                 renderValue={(value) => value}
               >
                 {Object.entries(timeUnitList).map(([key, timeUnit]) => (
-                  <MenuItem value={timeUnit.name}>
+                  <MenuItem value={timeUnit.name} key={key}>
                     {timeUnit.favorited ? (
                       <FavoriteIcon
                         onClick={(

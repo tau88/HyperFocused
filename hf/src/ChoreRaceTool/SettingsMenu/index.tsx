@@ -42,8 +42,8 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({
   const [deleteChoreMenu, setDeleteChoreMenu] =
     React.useState<null | HTMLElement>(null);
   const [selectedChore, setSelectedChore] = React.useState<string>("");
-
   const [tempChoreList, setTempChoreList] = React.useState([...savedChoreList]);
+
   React.useEffect(() => {
     if (open) {
       setTempChoreList([...savedChoreList]); // fresh copy each time dialog opens

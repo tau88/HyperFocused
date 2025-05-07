@@ -52,13 +52,15 @@ const NewChoreMenu: React.FC<NewChoreMenuProps> = ({
   };
 
   const handleCloseSave = () => {
-    if (value.unitOfMeasurement === "None")
-      setValue((prev) => ({
-        ...prev,
-        units: 0,
-      }));
-    setSavedChoreList([...savedChoreList, value]);
-    handleClose();
+    if (!Object.values(value).some((key) => key === null || key === "")) {
+      if (value.unitOfMeasurement === "None")
+        setValue((prev) => ({
+          ...prev,
+          units: 0,
+        }));
+      setSavedChoreList([...savedChoreList, value]);
+      handleClose();
+    }
   };
 
   const handleReset = () => {

@@ -7,9 +7,11 @@ import PomodoroTool from "./PomodoroTool";
 import TimeTranTool from "./TimeTranTool";
 import ChoreRaceTool from "./ChoreRaceTool";
 import initializeChoreData from "./ChoreRaceTool/initializeChoreData";
+import initializeTimeUnitData from "./TimeTranTool/initializeTimeUnitData";
 
 const App: React.FC = () => {
   initializeChoreData();
+  initializeTimeUnitData();
 
   return (
     <Router>
